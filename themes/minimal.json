@@ -1,0 +1,9 @@
+{
+  "box": { "style": "rect", "thickness": 2, "glow": false },
+  "label": { "enabled": true, "format": "{track_label} {confidence:.2f}", "font_scale": 0.55, "background_alpha": 0.7 },
+  "confidence_bar": { "enabled": false, "height": 3 },
+  "effects": { "vignette": 0.0, "scanline": false, "contrast": 1.0, "brightness": 0 },
+  "colors": { "person": "#ff3333", "dog": "#ffaa00", "cat": "#ffaa00", "vehicle": "#00ccff", "default": "#00ff66" },
+  "priority_classes": ["person", "dog", "cat", "car", "truck", "bus"],
+  "max_boxes": 40
+}

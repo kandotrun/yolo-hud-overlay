@@ -1,0 +1,36 @@
+{
+  "box": {
+    "style": "corners",
+    "thickness": 2,
+    "glow": true,
+    "glow_alpha": 0.18,
+    "corner_ratio": 0.22,
+    "corner_min": 12,
+    "corner_max": 34
+  },
+  "label": {
+    "enabled": true,
+    "format": "{track_label} {confidence_percent:.0f}%",
+    "font_scale": 0.55,
+    "background_alpha": 0.62
+  },
+  "confidence_bar": {
+    "enabled": true,
+    "height": 3
+  },
+  "effects": {
+    "vignette": 0.32,
+    "scanline": true,
+    "contrast": 1.06,
+    "brightness": -8
+  },
+  "colors": {
+    "person": "#ff5050",
+    "dog": "#ffaa00",
+    "cat": "#ffaa00",
+    "vehicle": "#1edcff",
+    "default": "#40ff80"
+  },
+  "priority_classes": ["person", "dog", "cat", "car", "motorcycle", "bus", "truck", "bicycle"],
+  "max_boxes": 28
+}
