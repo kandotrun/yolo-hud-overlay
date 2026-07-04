@@ -20,7 +20,7 @@ COCO_NAMES: dict[int, str] = {
 }
 VEHICLE_CLASSES = {"bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat"}
 
-DEFAULT_THEME_PATH = Path(__file__).resolve().parents[2] / "themes" / "neon.json"
+DEFAULT_THEME_PATH = Path(__file__).resolve().parents[2] / "themes" / "trace.json"
 
 
 def resolve_theme_path(theme_arg: str | None) -> Path:

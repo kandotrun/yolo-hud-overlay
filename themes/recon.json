@@ -1,0 +1,66 @@
+{
+  "box": {
+    "style": "rect",
+    "thickness": 2,
+    "confidence_tick": false
+  },
+  "label": {
+    "enabled": true,
+    "format": "{track_label}",
+    "font": "plain",
+    "font_scale": 1.1,
+    "thickness": 1,
+    "tracking": 1.5,
+    "text_color": "#06120a"
+  },
+  "confidence_bar": { "enabled": false },
+  "effects": {
+    "saturation": 0.32,
+    "tint": "#11212e",
+    "tint_strength": 0.20,
+    "contrast": 1.06,
+    "brightness": -6,
+    "vignette": 0.0,
+    "scanline": false
+  },
+  "colors": {
+    "person": "#39ff14",
+    "dog": "#39ff14",
+    "cat": "#39ff14",
+    "vehicle": "#4f5f57",
+    "default": "#4f5f57"
+  },
+  "priority_classes": ["person", "dog", "cat", "car", "truck", "bus"],
+  "max_boxes": 12,
+  "hud": {
+    "enabled": true,
+    "accent": "#39ff14",
+    "accent_classes": ["person", "dog", "cat"],
+    "chrome": {
+      "enabled": true,
+      "color": "#dfeee6",
+      "margin": 26,
+      "bracket": 46,
+      "thickness": 2,
+      "font_scale": 1.1,
+      "tracking": 1.5,
+      "cam": "01",
+      "rec": true,
+      "rec_color": "#ff3b30",
+      "top_left": "CAM {cam} · {timecode}",
+      "bottom_left": "OBJECTS {count}",
+      "bottom_right": "YOLO-HUD // RECON"
+    },
+    "primary": {
+      "enabled": true,
+      "inset": true,
+      "inset_w": 210,
+      "inset_h": 210,
+      "inset_label": "OBJ // {class_name}",
+      "pixelate": 14,
+      "pixelate_classes": ["person"],
+      "leader": true,
+      "card": true
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "box": {
+    "style": "rect",
+    "thickness": 2,
+    "confidence_tick": false
+  },
+  "label": {
+    "enabled": true,
+    "format": "{track_label}",
+    "font": "plain",
+    "font_scale": 1.1,
+    "thickness": 1,
+    "tracking": 1.5,
+    "text_color": "#f4f6f8"
+  },
+  "confidence_bar": { "enabled": false },
+  "effects": {
+    "saturation": 0.24,
+    "tint": "#141824",
+    "tint_strength": 0.18,
+    "contrast": 1.10,
+    "brightness": -6,
+    "vignette": 0.0,
+    "scanline": false
+  },
+  "colors": {
+    "person": "#ff2d2d",
+    "dog": "#ff2d2d",
+    "cat": "#ff2d2d",
+    "vehicle": "#5a5f6b",
+    "default": "#5a5f6b"
+  },
+  "priority_classes": ["person", "dog", "cat", "car", "truck", "bus"],
+  "max_boxes": 12,
+  "hud": {
+    "enabled": true,
+    "accent": "#ff2d2d",
+    "accent_classes": ["person", "dog", "cat"],
+    "chrome": {
+      "enabled": true,
+      "color": "#e6e9f0",
+      "margin": 26,
+      "bracket": 46,
+      "thickness": 2,
+      "font_scale": 1.1,
+      "tracking": 1.5,
+      "cam": "1738",
+      "rec": true,
+      "rec_color": "#ff2d2d",
+      "top_left": "CAM #{cam} · {timecode}",
+      "bottom_left": "TRACE ACTIVE",
+      "bottom_right": "SUBJECT ANALYSIS"
+    },
+    "primary": {
+      "enabled": true,
+      "inset": true,
+      "inset_w": 210,
+      "inset_h": 210,
+      "inset_label": "OBJ // {class_name}",
+      "pixelate": 14,
+      "pixelate_classes": ["person"],
+      "leader": true,
+      "card": true
+    }
+  }
+}

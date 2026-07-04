@@ -1,0 +1,66 @@
+{
+  "box": {
+    "style": "rect",
+    "thickness": 2,
+    "confidence_tick": false
+  },
+  "label": {
+    "enabled": true,
+    "format": "{track_label}",
+    "font": "plain",
+    "font_scale": 1.1,
+    "thickness": 1,
+    "tracking": 1.5,
+    "text_color": "#140f02"
+  },
+  "confidence_bar": { "enabled": false },
+  "effects": {
+    "saturation": 0.42,
+    "tint": "#2a2410",
+    "tint_strength": 0.16,
+    "contrast": 1.08,
+    "brightness": -4,
+    "vignette": 0.0,
+    "scanline": false
+  },
+  "colors": {
+    "person": "#ffcf1a",
+    "dog": "#ffcf1a",
+    "cat": "#ffcf1a",
+    "vehicle": "#6b6552",
+    "default": "#6b6552"
+  },
+  "priority_classes": ["person", "dog", "cat", "car", "truck", "bus"],
+  "max_boxes": 12,
+  "hud": {
+    "enabled": true,
+    "accent": "#ffcf1a",
+    "accent_classes": ["person", "dog", "cat"],
+    "chrome": {
+      "enabled": true,
+      "color": "#f0ece0",
+      "margin": 26,
+      "bracket": 46,
+      "thickness": 2,
+      "font_scale": 1.1,
+      "tracking": 1.5,
+      "cam": "02",
+      "rec": true,
+      "rec_color": "#ff3b30",
+      "top_left": "CCTV {cam} · {timecode}",
+      "bottom_left": "DATA UPDATE",
+      "bottom_right": "{count} TRACKED"
+    },
+    "primary": {
+      "enabled": true,
+      "inset": true,
+      "inset_w": 210,
+      "inset_h": 210,
+      "inset_label": "OBJ // {class_name}",
+      "pixelate": 14,
+      "pixelate_classes": ["person"],
+      "leader": true,
+      "card": true
+    }
+  }
+}

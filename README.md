@@ -2,6 +2,8 @@
 
 Themeable YOLO HUD overlay for videos. Built for quick iteration on detection-box visual design without editing Python.
 
+Ships with a **CCTV / surveillance-editorial** look: a color-graded feed, one accent color, technical type, and a single "hero" target with a redacted zoom inset — inspired by streetwear camera-analysis edits, kept honest for an anonymous tool.
+
 ## Quick start
 
 ```bash
@@ -13,11 +15,21 @@ python scripts/yolo_overlay_video.py \
   --imgsz 960 \
   --classes 0,1,2,3,5,7,16 \
   --stride 5 \
-  --theme themes/neon.json \
+  --theme themes/recon.json \
   --track
 ```
 
-If `--theme` is omitted, the CLI uses `YOLO_HUD_THEME` when set, then falls back to `themes/neon.json`.
+If `--theme` is omitted, the CLI uses `YOLO_HUD_THEME` when set, then falls back to `themes/trace.json`.
+
+## Themes
+
+| Theme | Look |
+| --- | --- |
+| `themes/trace.json` | Red on a desaturated cool grade — high-alert "subject of interest" feed (default). |
+| `themes/recon.json` | Lime on a cold blue grade — the flagship analysis-panel look. |
+| `themes/surveil.json` | Amber on a warm grade — clean municipal-CCTV monitor. |
+| `themes/neon.json` | The original neon corner-bracket theme. |
+| `themes/minimal.json` | Plain rectangles, no effects. |
 
 ## Edit the design
 
@@ -36,9 +48,23 @@ Label format variables: `{name}`, `{track_label}`, `{track_id}`, `{class_name}`,
 - `label.format`: e.g. `{name} {confidence_percent:.0f}%`
 - `confidence_bar.enabled`
 - `effects.vignette`, `effects.scanline`, `effects.contrast`, `effects.brightness`
+- `effects.saturation`, `effects.tint`, `effects.tint_strength`: cinematic color grade (desaturate + color cast)
 - `colors`: per-class/group colors
 - `priority_classes`
 - `max_boxes`
+
+### CCTV-editorial mode (`hud` block)
+
+Set `hud.enabled` to switch on the surveillance-editorial renderer (see `themes/trace.json`). Knobs:
+
+- `hud.accent`: the single accent color that carries the whole HUD
+- `hud.accent_classes`: classes drawn in the accent (others render muted grey)
+- `hud.chrome`: whole-frame overlay — corner brackets, `top_left`/`bottom_left`/`bottom_right` status strings (support `{cam}`, `{timecode}`, `{count}`, `{frame}`), `rec` blinking dot, `margin`, `bracket`
+- `hud.primary`: the single hero target's treatment — `inset` (zoom panel), `pixelate` / `pixelate_classes` (mosaic redaction, on for `person`), `card` (ID / class / confidence), `leader` (connector line), `inset_label`
+- `label.font` (`plain`/`simplex`/`duplex`/`triplex`), `label.tracking`, `label.text_color`: technical tag typography
+- `box.confidence_tick`: per-box confidence bar (off in editorial themes; confidence lives in the hero card)
+
+Only the top-priority detection gets the zoom + card; the rest stay quiet. The zoom inset is mosaiced for people, so the overlay never up-resolves a recognizable face — it stays consistent with the anonymous tracking guarantee below.
 
 ## Anonymous tracking IDs
 
