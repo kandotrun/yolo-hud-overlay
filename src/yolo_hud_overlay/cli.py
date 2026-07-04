@@ -36,7 +36,7 @@ def overlay_video(input_path: Path, raw_output_path: Path, theme: dict, model_na
                 result = model.predict(frame, imgsz=imgsz, conf=conf, classes=classes, verbose=False, device="cpu")[0]
                 detections = detections_from_yolo(result.boxes)
                 last_boxes = tracker.update(detections) if track else detections
-            writer.write(render_frame(frame, last_boxes, theme, model.names))
+            writer.write(render_frame(frame, last_boxes, theme, model.names, frame_index=idx, fps=fps))
             idx += 1
     finally:
         writer.release()
