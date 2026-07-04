@@ -7,9 +7,13 @@ requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Kan Ninomiya" }]
 dependencies = [
-  "ultralytics>=8.3.0",
   "opencv-python-headless>=4.10.0",
   "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+runtime = [
+  "ultralytics>=8.3.0",
 ]
 
 [project.scripts]

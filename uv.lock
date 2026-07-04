@@ -1437,6 +1437,10 @@ dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "opencv-python-headless" },
+]
+
+[package.optional-dependencies]
+runtime = [
     { name = "ultralytics" },
 ]
 
@@ -1449,8 +1453,9 @@ dev = [
 requires-dist = [
     { name = "numpy", specifier = ">=1.26" },
     { name = "opencv-python-headless", specifier = ">=4.10.0" },
-    { name = "ultralytics", specifier = ">=8.3.0" },
+    { name = "ultralytics", marker = "extra == 'runtime'", specifier = ">=8.3.0" },
 ]
+provides-extras = ["runtime"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.0.0" }]

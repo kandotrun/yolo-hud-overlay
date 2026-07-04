@@ -33,11 +33,13 @@ If `--theme` is omitted, the CLI uses `YOLO_HUD_THEME` when set, then falls back
 
 ## Edit the design
 
-Edit:
+Edit the active theme:
 
 ```txt
-themes/neon.json
+themes/trace.json
 ```
+
+Or switch the cron/env to `themes/recon.json` / `themes/surveil.json` if you prefer that look.
 
 Useful knobs:
 
@@ -82,7 +84,7 @@ These IDs reset per run and are not biometric identity recognition. Use `--no-tr
 
 ```env
 TAPO_WATCH_YOLO_SCRIPT=/home/kan/yolo-hud-overlay/scripts/yolo_overlay_video.py
-YOLO_HUD_THEME=/home/kan/yolo-hud-overlay/themes/neon.json
+YOLO_HUD_THEME=/home/kan/yolo-hud-overlay/themes/trace.json
 ```
 
 The script stays compatible with the existing Tapo watcher arguments.
