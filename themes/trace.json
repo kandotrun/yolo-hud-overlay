@@ -37,7 +37,7 @@
     "accent": "#ff2d2d",
     "accent_classes": ["person", "dog", "cat"],
     "chrome": {
-      "enabled": true,
+      "enabled": false,
       "color": "#e6e9f0",
       "margin": 26,
       "bracket": 46,
@@ -45,22 +45,22 @@
       "font_scale": 1.1,
       "tracking": 1.5,
       "cam": "1738",
-      "rec": true,
+      "rec": false,
       "rec_color": "#ff2d2d",
-      "top_left": "CAM #{cam} · {timecode}",
-      "bottom_left": "TRACE ACTIVE",
-      "bottom_right": "SUBJECT ANALYSIS"
+      "top_left": "",
+      "bottom_left": "",
+      "bottom_right": ""
     },
     "primary": {
-      "enabled": true,
-      "inset": true,
+      "enabled": false,
+      "inset": false,
       "inset_w": 210,
       "inset_h": 210,
       "inset_label": "OBJ // {class_name}",
       "pixelate": 14,
       "pixelate_classes": ["person"],
-      "leader": true,
-      "card": true
+      "leader": false,
+      "card": false
     }
   }
 }
