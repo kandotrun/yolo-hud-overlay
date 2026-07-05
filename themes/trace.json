@@ -52,15 +52,15 @@
       "bottom_right": ""
     },
     "primary": {
-      "enabled": false,
-      "inset": false,
+      "enabled": true,
+      "inset": true,
       "inset_w": 210,
       "inset_h": 210,
       "inset_label": "OBJ // {class_name}",
       "pixelate": 14,
       "pixelate_classes": ["person"],
-      "leader": false,
-      "card": false
+      "leader": true,
+      "card": true
     }
   }
 }
