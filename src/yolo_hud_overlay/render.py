@@ -122,23 +122,30 @@ def _boxes_intersect(a: tuple[int, int, int, int], b: tuple[int, int, int, int])
 
 def _sorted_items(boxes: Any, theme: dict[str, Any], model_names: dict[int, str] | None) -> list[tuple]:
     priority = {name.replace("_", " ") for name in theme.get("priority_classes", [])}
-    items: list[tuple] = []
+    hud_primary = theme.get("hud", {}).get("primary", {})
+    motion_enabled = bool(hud_primary.get("motion_priority", True))
+    motion_min = float(hud_primary.get("motion_min_score", 0.015))
+    items_with_sort: list[tuple[tuple[int, float, float, int], tuple]] = []
     for box_item in boxes:
         if isinstance(box_item, Detection):
             class_id = box_item.class_id
             conf = box_item.confidence
             xyxy = list(box_item.xyxy)
             track_id = box_item.track_id
+            movement = float(box_item.motion_score)
         else:
             class_id = int(box_item.cls[0])
             conf = float(box_item.conf[0])
             xyxy = list(map(int, box_item.xyxy[0].cpu().numpy().tolist()))
             track_id = None
+            movement = 0.0
         area = max(0, xyxy[2] - xyxy[0]) * max(0, xyxy[3] - xyxy[1])
         pri = 0 if class_name(class_id, model_names) in priority else 1
-        items.append((pri, -conf, -area, class_id, conf, xyxy, track_id))
-    items.sort()
-    return items
+        item = (pri, -conf, -area, class_id, conf, xyxy, track_id)
+        motion_rank = -movement if motion_enabled and movement >= motion_min else 0.0
+        items_with_sort.append(((pri, motion_rank, -conf, -area), item))
+    items_with_sort.sort(key=lambda pair: pair[0])
+    return [item for _, item in items_with_sort]
 
 
 def draw_progress(img: np.ndarray, x: int, y: int, w: int, h: int, frac: float,

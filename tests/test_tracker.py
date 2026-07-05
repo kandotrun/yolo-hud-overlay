@@ -37,3 +37,20 @@ def test_tracker_drops_stale_tracks_after_max_age():
 def test_track_label_is_anonymous_class_id():
     assert track_label("PERSON", 7) == "PERSON-007"
     assert track_label("DOG", None) == "DOG"
+
+
+def test_tracker_scores_motion_for_reused_tracks():
+    tracker = AnonymousTracker(iou_threshold=0.2, max_age=2)
+    tracker.update([
+        Detection(2, 0.95, (100, 100, 300, 220)),
+        Detection(0, 0.80, (20, 80, 80, 220)),
+    ])
+
+    tracked = tracker.update([
+        Detection(2, 0.95, (100, 100, 300, 220)),  # parked/static car
+        Detection(0, 0.80, (45, 80, 105, 220)),    # moving person
+    ])
+
+    by_class = {d.class_id: d for d in tracked}
+    assert by_class[2].motion_score == 0.0
+    assert by_class[0].motion_score > by_class[2].motion_score

@@ -53,6 +53,8 @@
     },
     "primary": {
       "enabled": true,
+      "motion_priority": true,
+      "motion_min_score": 0.015,
       "inset": true,
       "inset_w": 210,
       "inset_h": 210,

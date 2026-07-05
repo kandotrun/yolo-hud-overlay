@@ -11,6 +11,7 @@ class Detection:
     confidence: float
     xyxy: tuple[int, int, int, int]
     track_id: int | None = None
+    motion_score: float = 0.0
 
 
 @dataclass
@@ -32,6 +33,21 @@ def iou(a: tuple[int, int, int, int], b: tuple[int, int, int, int]) -> float:
     area_b = max(0, bx2 - bx1) * max(0, by2 - by1)
     union = area_a + area_b - inter
     return inter / union if union else 0.0
+
+
+def motion_score(previous: tuple[int, int, int, int], current: tuple[int, int, int, int]) -> float:
+    """Normalized center movement between two boxes.
+
+    The score is relative to object size, not frame size, so a walking person can
+    outrank a large parked car even if the absolute pixel movement is modest.
+    """
+    px1, py1, px2, py2 = previous
+    cx1, cy1, cx2, cy2 = current
+    pcx, pcy = (px1 + px2) / 2, (py1 + py2) / 2
+    ccx, ccy = (cx1 + cx2) / 2, (cy1 + cy2) / 2
+    distance = ((ccx - pcx) ** 2 + (ccy - pcy) ** 2) ** 0.5
+    diagonal = max(1.0, ((px2 - px1) ** 2 + (py2 - py1) ** 2) ** 0.5)
+    return distance / diagonal
 
 
 class AnonymousTracker:
@@ -70,14 +86,15 @@ class AnonymousTracker:
                     best_index = index
             if best_index is not None and best_iou >= self.iou_threshold:
                 track = self._tracks[best_index]
+                score = motion_score(track.xyxy, detection.xyxy)
                 track.xyxy = detection.xyxy
                 track.age = 0
                 used_tracks.add(best_index)
-                result.append(replace(detection, track_id=track.track_id))
+                result.append(replace(detection, track_id=track.track_id, motion_score=score))
             else:
                 track_id = self._next_id(detection.class_id)
                 self._tracks.append(_Track(detection.class_id, detection.xyxy, track_id, age=0))
-                result.append(replace(detection, track_id=track_id))
+                result.append(replace(detection, track_id=track_id, motion_score=0.0))
 
         self._tracks = [track for track in self._tracks if track.age <= self.max_age]
         return result

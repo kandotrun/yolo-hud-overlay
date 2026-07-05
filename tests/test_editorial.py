@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from yolo_hud_overlay import hud
-from yolo_hud_overlay.render import render_frame, style_frame
+from yolo_hud_overlay.render import _sorted_items, render_frame, style_frame
 from yolo_hud_overlay.tracker import Detection
 
 FRAME = np.full((360, 640, 3), 120, np.uint8)
@@ -76,3 +76,28 @@ def test_editorial_ignores_when_hud_disabled():
     theme = {**EDITORIAL, "hud": {"enabled": False}}
     out = render_frame(FRAME.copy(), DETS, theme, model_names=None)
     assert out.shape == FRAME.shape
+
+
+def test_editorial_primary_prefers_moving_detection_over_static_large_object():
+    theme = {**EDITORIAL, "priority_classes": ["person", "car"]}
+    detections = [
+        Detection(2, 0.99, (300, 160, 620, 300), track_id=1, motion_score=0.0),
+        Detection(0, 0.72, (60, 80, 150, 320), track_id=1, motion_score=0.18),
+    ]
+
+    sorted_items = _sorted_items(detections, theme, model_names=None)
+
+    # The first item becomes the zoom-card primary subject.
+    assert sorted_items[0][3] == 0
+
+
+def test_editorial_primary_keeps_priority_classes_above_non_priority_motion_noise():
+    theme = {**EDITORIAL, "priority_classes": ["person", "car"]}
+    detections = [
+        Detection(0, 0.80, (60, 80, 150, 320), track_id=1, motion_score=0.02),
+        Detection(26, 0.95, (300, 160, 620, 300), track_id=1, motion_score=0.40),
+    ]
+
+    sorted_items = _sorted_items(detections, theme, model_names=None)
+
+    assert sorted_items[0][3] == 0
